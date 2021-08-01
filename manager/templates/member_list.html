@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block base_container %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Surname</th>
+                      <th scope="col">Booking Count</th>
+                      <th scope="col">Joining Date</th>
+                      <th scope="col">Book</th>
+                      <th scope="col">Cancel</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for obj in object_list %}
+                    <tr>
+                      <td>{{obj.name}}</td>
+                      <td>{{obj.surname}}</td>
+                      <td>{{obj.booking_count}}</td>
+                      <td>{{obj.date_joined}}</td>
+                      <td>
+                          {% if obj.booking_count < 2 %}
+                            <a href="{% url 'manager:update' obj.id %}">Book</a>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if obj.booking_count > 0 %}
+                            <a href="{% url 'manager:cancel' obj.id %}">Cancel</a>
+                          {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
